@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Recaho design system
+   Tokens extracted from recaho.com (brand red #C21E1C, accent #E84B2A,
+   Outfit for display and body, warm neutral surfaces, pill buttons).
+   Every colour, font and radius used in the UI resolves to a token below.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-brand: #c21e1c;
+  --color-brand-600: #a81816;
+  --color-brand-700: #8c1312;
+  --color-brand-900: #4a0d0c;
+  --color-brand-100: #f8dcdb;
+  --color-brand-50: #fdf3f2;
+
+  --color-accent: #e84b2a;
+  --color-accent-50: #fff2ee;
+
+  --color-ink: #14161a;
+  --color-ink-800: #1e2229;
+  --color-ink-700: #2b3038;
+  --color-body: #545d68;
+  --color-muted: #7d8792;
+
+  --color-line: #e9e3dc;
+  --color-line-strong: #d8d1c7;
+
+  --color-paper: #ffffff;
+  --color-sand: #faf7f3;
+  --color-sand-200: #f3ede6;
+  --color-sand-300: #ebe3d9;
+
+  --color-success: #157f52;
+  --color-warning: #b26a00;
+
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-btn: 999px;
+  --radius-card: 20px;
+  --radius-panel: 28px;
+
+  --shadow-card: 0 1px 2px rgba(20, 22, 26, 0.04), 0 6px 20px rgba(20, 22, 26, 0.05);
+  --shadow-lift: 0 2px 6px rgba(20, 22, 26, 0.05), 0 18px 44px rgba(20, 22, 26, 0.1);
+  --shadow-brand: 0 10px 30px rgba(194, 30, 28, 0.22);
+
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 48s linear infinite;
+
+  --breakpoint-xs: 26rem;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 128px;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Marquee tracks are duplicated for looping; without motion they must
+       start unshifted so the row still reads as a complete list. */
+    .marquee-track {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  .shell-narrow {
+    width: 100%;
+    max-width: 900px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  /* Editorial type scale — fluid, no oversized mobile headings. */
+  .display-1 {
+    font-size: clamp(2.35rem, 4.8vw, 4.1rem);
+    line-height: 1.03;
+    letter-spacing: -0.04em;
+  }
+
+  .display-hero {
+    font-size: clamp(2.3rem, 4.35vw, 3.85rem);
+    line-height: 1.04;
+    letter-spacing: -0.05em;
+    font-weight: 800;
+  }
+
+  .display-2 {
+    font-size: clamp(2rem, 3.6vw, 3.15rem);
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+  }
+
+  .display-3 {
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+  }
+
+  .lede {
+    font-size: clamp(1.02rem, 1.15vw, 1.16rem);
+    line-height: 1.65;
+    color: var(--color-body);
+  }
+
+  .hairline {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(20, 22, 26, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(20, 22, 26, 0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Dotted hero field, mirrored from the reference layout. */
+  .dot-field {
+    background-image: radial-gradient(rgba(20, 22, 26, 0.14) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: radial-gradient(90% 80% at 50% 0%, #000 20%, transparent 85%);
+    -webkit-mask-image: radial-gradient(90% 80% at 50% 0%, #000 20%, transparent 85%);
+  }
+
+  /* Inline highlight used in hero headings and ledes. */
+  .chip {
+    display: inline-block;
+    border-radius: 0.28em;
+    background: var(--color-brand-50);
+    color: var(--color-brand);
+    padding: 0 0.16em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .chip-soft {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 0.4em;
+    background: var(--color-sand-200);
+    color: var(--color-ink);
+    font-weight: 600;
+    padding: 0 0.3em;
+  }
+
+  .grid-lines-dark {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: var(--animate-marquee);
+  }
+
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .marquee-mask-y {
+    mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .pause-on-hover:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .prose-recaho {
+    color: var(--color-body);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .prose-recaho h2 {
+    font-size: clamp(1.5rem, 2.2vw, 1.95rem);
+    margin-top: 2.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .prose-recaho h3 {
+    font-size: 1.2rem;
+    margin-top: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose-recaho p {
+    margin-bottom: 1.1rem;
+  }
+
+  .prose-recaho a {
+    color: var(--color-brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose-recaho ul {
+    margin: 0 0 1.2rem 1.1rem;
+    list-style: disc;
+  }
+
+  .prose-recaho li {
+    margin-bottom: 0.45rem;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
